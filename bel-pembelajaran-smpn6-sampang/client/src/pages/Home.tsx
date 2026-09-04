@@ -450,8 +450,7 @@ export default function Home() {
               <div className="progress-line"><span style={{ width: `${completion}%` }} /></div>
             </div>
             <div className="next-card">
-             <img src={DESK_URL} alt="Meja kerja jadwal sekolah" />
-              <div className="next-overlay" />
+            <div className="next-overlay" />
               <div className="next-content">
                 <div className="next-label"><span className="pulse-dot" /> AGENDA BERIKUTNYA</div>
                 <strong>{nextItem?.title ?? "Belum ada agenda"}</strong>
