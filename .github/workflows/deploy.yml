@@ -1,8 +1,8 @@
-name: Deploy Bel Pembelajaran
+name: Deploy static content to Pages
 
 on:
   push:
-    branches: [main]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -10,48 +10,21 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Ambil source code
-        uses: actions/checkout@v4
-
-      - name: Siapkan Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Siapkan pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.15.1
-
-      - name: Install dependency
-        run: pnpm install --frozen-lockfile
-
-      - name: Build aplikasi
-        run: pnpm build
-
-      - name: Siapkan GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload hasil build
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist/public
-
   deploy:
-    needs: build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
     steps:
-      - name: Deploy ke GitHub Pages
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './bel-pembelajaran-smpn6-sampang'
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
