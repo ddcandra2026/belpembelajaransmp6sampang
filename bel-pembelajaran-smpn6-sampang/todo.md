@@ -1,0 +1,21 @@
+# Tugas Revisi: Single HTML, Mode Latar Belakang, PWA, Backup, Restore, dan GitHub Pages
+
+- [ ] Verifikasi apakah output saat ini merupakan satu file HTML mandiri atau aplikasi React hasil build.
+- [x] Tambahkan manifest PWA dan service worker dengan cache aman untuk GitHub Pages.
+- [x] Tambahkan kontrol instalasi PWA dan panduan pemasangan di Chrome/Edge.
+- [x] Tambahkan indikator audio siap dan jelaskan batasan background browser.
+- [ ] Tentukan opsi penggunaan saat pengguna berpindah ke Microsoft Word.
+- [ ] Tambahkan panduan mode latar belakang browser dan batasan autoplay audio.
+- [ ] Evaluasi kebutuhan PWA/desktop wrapper untuk notifikasi yang lebih andal.
+- [ ] Periksa koneksi GitHub dan repository ddcandra2026/bel pembelajaransmp6sampang.
+- [ ] Sesuaikan base path dan asset path untuk GitHub Pages.
+- [ ] Siapkan workflow build dan deploy GitHub Pages.
+- [ ] Upload source code dan workflow ke repository.
+- [ ] Verifikasi hasil deployment melalui URL GitHub Pages.
+- [x] Tambahkan export jadwal bel dengan metadata dan nama file bertanggal.
+- [x] Tambahkan import jadwal bel dengan validasi struktur dan ringkasan hasil.
+- [x] Sediakan kontrol backup yang mudah ditemukan di panel operator.
+- [x] Buat file backup lengkap yang mencakup jadwal, agenda, pesan, dan preferensi suara.
+- [x] Tambahkan restore dengan validasi format, versi, dan konfirmasi penggantian data.
+- [x] Tampilkan status backup terakhir dan panduan pemulihan di aplikasi.
+- [x] Uji ulang build setelah revisi dokumentasi atau kode.
