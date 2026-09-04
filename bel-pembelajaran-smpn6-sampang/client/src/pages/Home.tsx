@@ -56,10 +56,7 @@ type SpecialEvent = {
 
 const DAYS: Day[] = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 const STORAGE_KEY = "bel-smpn6-sampang-v1";
-const LOGO_URL = "/manus-storage/bel-logo-mark_8363abc1.png";
-const HERO_URL = "/manus-storage/bel-hero-control-room_eeb22d39.png";
-const PAPER_URL = "/manus-storage/bel-paper-grid_e58da4fd.png";
-const DESK_URL = "/manus-storage/bel-schedule-illustration_7a40cbdd.png";
+
 
 const messageDefaults: Record<BellType, string> = {
   Bel: "Perhatian. Waktu pembelajaran berikutnya telah dimulai.",
@@ -150,7 +147,7 @@ const isBellType = (value: unknown): value is BellType => typeof value === "stri
 const isClockTime = (value: unknown): value is string => typeof value === "string" && /^([01]\\d|2[0-3]):[0-5]\\d$/.test(value);
 
 function IconMark({ size = "small" }: { size?: "small" | "large" }) {
-  return <img className={`brand-mark ${size}`} src={LOGO_URL} alt="Ikon Bel Pembelajaran" />;
+  return <div className={`brand-mark ${size} brand-mark-fallback`}><BellRing size={size === "large" ? 28 : 16} /></div>;
 }
 
 export default function Home() {
@@ -403,7 +400,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="app-shell" style={{ "--paper-url": `url(${PAPER_URL})` } as CSSProperties}>
+   <div className="app-shell">
       <aside className="sidebar">
         <div className="sidebar-brand">
           <IconMark size="small" />
@@ -453,7 +450,7 @@ export default function Home() {
               <div className="progress-line"><span style={{ width: `${completion}%` }} /></div>
             </div>
             <div className="next-card">
-              <img src={HERO_URL} alt="Ilustrasi ruang kendali bel sekolah" />
+             <img src={DESK_URL} alt="Meja kerja jadwal sekolah" />
               <div className="next-overlay" />
               <div className="next-content">
                 <div className="next-label"><span className="pulse-dot" /> AGENDA BERIKUTNYA</div>
@@ -513,7 +510,7 @@ export default function Home() {
           <section className="operator-section" id="settings">
             <div className="section-heading"><div><div className="eyebrow">WORKSPACE OPERATOR</div><h2>Kelola sistem dengan tenang.</h2></div><p>Semua perubahan disimpan di perangkat ini. Ekspor cadangan sebelum pindah komputer.</p></div>
             <div className="operator-grid">
-              <div className="operator-card visual-card"><img src={DESK_URL} alt="Meja kerja jadwal sekolah" /><div className="visual-card-copy"><span>RAPIKAN HARI ANDA</span><strong>Jadwal yang jelas<br />membuat langkah ringan.</strong></div></div>
+              <div className="operator-card visual-card"><div className="visual-card-copy"><span>RAPIKAN HARI ANDA</span><strong>Jadwal yang jelas<br />membuat langkah ringan.</strong></div></div>
               <div className="operator-card settings-card"><div className="card-title-row"><div><div className="eyebrow">PENGATURAN BEL {selectedDay.toUpperCase()}</div><h3>{editingId ? "Edit momen bel" : "Tambah momen baru"}</h3></div>{editingId && <button className="close-edit" onClick={() => setEditingId(null)}><X size={15} /></button>}</div><div className="form-grid"><label><span>Waktu</span><input type="time" value={draft.time} onChange={(event) => setDraft((value) => ({ ...value, time: event.target.value }))} /></label><label><span>Jenis</span><select value={draft.type} onChange={(event) => { const type = event.target.value as BellType; setDraft((value) => ({ ...value, type, message: messages[type] || messageDefaults[type] })); }}><option value="Bel">Bel pembelajaran</option><option value="MBG">MBG</option><option value="Istirahat">Istirahat</option><option value="SAS">SAS</option><option value="Agenda">Agenda</option><option value="Pulang">Pulang</option></select></label><label className="wide"><span>Nama momen</span><input value={draft.title} onChange={(event) => setDraft((value) => ({ ...value, title: event.target.value }))} /></label><label><span>Durasi / detail</span><input value={draft.detail} onChange={(event) => setDraft((value) => ({ ...value, detail: event.target.value }))} /></label></div><label className="field-label below">Kalimat pengisi suara</label><textarea className="message-box" value={draft.message} onChange={(event) => setDraft((value) => ({ ...value, message: event.target.value }))} rows={2} /><div className="form-actions"><button className="button-primary" onClick={saveBell}><Save size={15} /> {editingId ? "Simpan perubahan" : "Tambah ke jadwal"}</button><button className="button-secondary" onClick={() => { setDraft((value) => ({ ...value, message: messages[value.type] || messageDefaults[value.type] })); toast.success("Kalimat dikembalikan ke template."); }}><RotateCcw size={15} /> Template suara</button></div></div>
               <div className="operator-card tool-card"><div className="eyebrow">DATA & PERANGKAT</div><h3>Jaga konfigurasi tetap aman.</h3><p>Buat backup lengkap sebelum membersihkan browser atau memindahkan aplikasi ke komputer lain.</p><div className="tool-actions"><button className="button-secondary full" onClick={exportConfig}><Download size={15} /> Backup sekarang</button><label className="button-secondary full file-button"><Upload size={15} /> Restore dari file<input type="file" accept="application/json,.json" onChange={(event) => { importConfig(event.target.files?.[0]); event.currentTarget.value = ""; }} /></label></div><div className="backup-last"><CheckCircle2 size={15} /><span><strong>{lastBackupAt ? `Backup terakhir ${new Date(lastBackupAt).toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" })}` : "Belum ada backup file"}</strong><br />Backup berisi jadwal, agenda, pesan suara, dan preferensi suara.</span></div><div className="safe-note"><ShieldCheck size={16} /><span><strong>Local-first</strong><br />Data tidak dikirim ke server.</span></div></div>
             </div>
