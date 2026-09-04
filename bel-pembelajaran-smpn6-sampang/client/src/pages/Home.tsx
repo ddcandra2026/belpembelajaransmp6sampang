@@ -1,5 +1,5 @@
 // Editorial Control Room: dashboard asimetris dengan numeralia waktu besar, timeline sinyal, dan kontrol operator yang cepat dipindai.
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BellRing,
   CalendarClock,
@@ -56,7 +56,6 @@ type SpecialEvent = {
 
 const DAYS: Day[] = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 const STORAGE_KEY = "bel-smpn6-sampang-v1";
-
 
 const messageDefaults: Record<BellType, string> = {
   Bel: "Perhatian. Waktu pembelajaran berikutnya telah dimulai.",
@@ -144,7 +143,7 @@ const typeClass = (type: BellType) => type.toLowerCase().replace(" ", "-");
 const bellTypes: BellType[] = ["Bel", "MBG", "Istirahat", "SAS", "Agenda", "Pulang"];
 const isBellDay = (value: unknown): value is Day => typeof value === "string" && DAYS.includes(value as Day);
 const isBellType = (value: unknown): value is BellType => typeof value === "string" && bellTypes.includes(value as BellType);
-const isClockTime = (value: unknown): value is string => typeof value === "string" && /^([01]\\d|2[0-3]):[0-5]\\d$/.test(value);
+const isClockTime = (value: unknown): value is string => typeof value === "string" && /^([01]\d|2[0-3]):[0-5]\d$/.test(value);
 
 function IconMark({ size = "small" }: { size?: "small" | "large" }) {
   return <div className={`brand-mark ${size} brand-mark-fallback`}><BellRing size={size === "large" ? 28 : 16} /></div>;
@@ -400,7 +399,7 @@ export default function Home() {
   ];
 
   return (
-   <div className="app-shell">
+    <div className="app-shell">
       <aside className="sidebar">
         <div className="sidebar-brand">
           <IconMark size="small" />
@@ -450,7 +449,7 @@ export default function Home() {
               <div className="progress-line"><span style={{ width: `${completion}%` }} /></div>
             </div>
             <div className="next-card">
-            <div className="next-overlay" />
+              <div className="next-overlay" />
               <div className="next-content">
                 <div className="next-label"><span className="pulse-dot" /> AGENDA BERIKUTNYA</div>
                 <strong>{nextItem?.title ?? "Belum ada agenda"}</strong>
